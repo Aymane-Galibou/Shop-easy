@@ -13,8 +13,6 @@
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-label": "^2.1.2",
-    "@react-three/drei": "^10.4.2",
-    "@react-three/fiber": "^9.0.0-alpha.8",
     "@tabler/icons-react": "^3.30.0",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",

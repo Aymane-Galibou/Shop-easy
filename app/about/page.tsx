@@ -99,10 +99,7 @@ function About() {
         </div>
 
 
-            {/* globe */}
-          <div className="global">
-            <GlobeDemo />
-          </div>
+
 
         {/*  item2 */}
       </div>
