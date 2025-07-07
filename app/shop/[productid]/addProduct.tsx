@@ -4,7 +4,7 @@ import { CardContext } from "@/Context/cardContext";
 import axios from "axios";
 import { useContext } from "react";
 
-export default function useaddProduct() {
+export default function UseaddProduct() {
   const { setloadingcart  } = useContext(CardContext);
   
   return async function addproduct(session: string, productId: string) {
@@ -22,6 +22,7 @@ export default function useaddProduct() {
           },
         }
       );
+      console.log(response)
     } catch (err) {
       console.log(err);
     } finally {

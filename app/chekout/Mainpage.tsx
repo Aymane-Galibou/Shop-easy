@@ -52,7 +52,7 @@ export default function Chekout({card_id,session}:{card_id:string,session:string
 
   // chek out form
 
-  let formik1 = useFormik<SigninForme>({
+  const formik1 = useFormik<SigninForme>({
     initialValues: {
       details: "",
       phone: "",

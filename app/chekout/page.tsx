@@ -21,7 +21,7 @@ export default async function Mainchekout(){
         },
       }
     );
-    let cartid=data.data._id
+    const cartid=data.data._id
     console.log(cartid);
     
   

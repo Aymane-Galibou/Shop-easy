@@ -22,14 +22,14 @@ export default function Signin() {
     password?: string;
   };
 
-  let error: ErrorSigninForme = {};
+  const error: ErrorSigninForme = {};
   const [apiError, setApiError] = useState<string | null>(null);
   const [loadingsign, setloadingsign] = useState<boolean>(false);
 
   async function handlesignin(data: SigninForme) {
     try {
       setloadingsign(true);
-      let feedback = await axios.post(
+      const feedback = await axios.post(
         "https://ecommerce.routemisr.com/api/v1/auth/signin",
         data
       );
@@ -42,7 +42,7 @@ export default function Signin() {
         router.push("/");
         router.refresh();
       }
-    } catch (err: any) {
+    } catch (err: any | undefined) {
       setApiError(err.response?.data?.message);
     } finally {
       setloadingsign(false);
@@ -70,7 +70,7 @@ export default function Signin() {
 
   // sign in forme
 
-  let formik1 = useFormik<SigninForme>({
+  const formik1 = useFormik<SigninForme>({
     initialValues: {
       email: "",
       password: "",
@@ -217,7 +217,7 @@ export default function Signin() {
                 </form>
 
                 <p className="mt-10 mb-4 text-center text-sm/6 text-gray-500 flex gap-4">
-                  <span>you don't have an account?</span>
+                  <span>you don&apos;t have an account?</span>
                   <Link
                     href={"/signup"}
                     className="font-semibold text-orange-600 hover:text-orange-500 hover:border-b-2  hover:border-b-black transition-all duration-300"

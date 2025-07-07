@@ -8,7 +8,6 @@ import { useContext, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FiDollarSign } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
-import { Lens } from "./lens";
 
 type Product = {
   description?: string;

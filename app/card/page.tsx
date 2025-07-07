@@ -1,6 +1,4 @@
-import Image from "next/image";
-import React, { Suspense } from "react";
-import logo from "../../public/logo.png";
+import React from "react";
 import { cookies } from "next/headers";
 import GetLoggedCard from "./getLoggedCard";
 

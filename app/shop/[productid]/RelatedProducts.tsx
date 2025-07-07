@@ -6,7 +6,10 @@ import Link from "next/link";
 import { ThreeDCardDemo } from "@/Components/ui/card";
 
 function RelatedProducts({ categorie }: { categorie: string }) {
+
   const [relatedProducts, setrelatedProducts] = useState<Product[]>();
+
+
 
   useEffect(() => {
     async function getProducts() {
@@ -24,7 +27,7 @@ function RelatedProducts({ categorie }: { categorie: string }) {
     }
 
     getProducts();
-  }, []);
+  }, [categorie]);
 
   return (
     <>

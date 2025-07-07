@@ -18,7 +18,9 @@ function Specifcat() {
 
   const [specifqCategorie, setspecifqCategorie] = useState<specifiqCategorie>();
 
-  async function getspecifiqCategorie() {
+
+  useEffect(() => {
+      async function getspecifiqCategorie() {
     const { data } = await axios.get(
       `https://ecommerce.routemisr.com/api/v1/categories/${specifcat}`
     );
@@ -27,9 +29,11 @@ function Specifcat() {
     console.log(data.data);
   }
 
-  useEffect(() => {
+
     window.scrollTo(0, 0);
+
     getspecifiqCategorie();
+
   }, []);
 
   return (
@@ -51,9 +55,9 @@ function Specifcat() {
           <div className="px-5 border-gray-600 dark:border-white border-2 rounded-xl">
             <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed tracking-wide px-4 sm:px-6 md:px-8 max-w-3xl mx-auto text-center mb-8">
               Explore the core details of this main category along with key
-              highlights and specifications at a glance. Below, you’ll find a
+              highlights and specifications at a glance. Below, you&apos;ll find a
               curated list of products that belong to the same category,
-              offering you consistent quality and relevance. Whether you're
+              offering you consistent quality and relevance. Whether you&apos;re
               comparing options or exploring related items, everything you need
               is right here in one place.
             </p>

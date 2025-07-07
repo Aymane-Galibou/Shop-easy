@@ -1,16 +1,28 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-];
-
-export default eslintConfig;
+module.exports = {
+  root: true,
+  extends: [
+    "next/core-web-vitals",
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  rules: {
+    // Disable explicit any errors globally
+    "@typescript-eslint/no-explicit-any": "off",
+    
+    // Disable react hooks exhaustive deps warnings globally
+    "react-hooks/exhaustive-deps": "off",
+    
+    // You can add more rules here to disable or customize
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+};

@@ -37,7 +37,7 @@ export default function Signup() {
   const [loadingsignup, setloadingsignup] = useState<boolean>(false);
 
   const validateuser = (data: FormValues) => {
-    let error: Formerrors = {};
+    const error: Formerrors = {};
 
     if (data.name === "") {
       error.name = "Name is Required";
@@ -60,7 +60,7 @@ export default function Signup() {
 
   async function handleregister(data: FormValues) {
     setloadingsignup(true);
-    let reponse = await axios.post(
+    const reponse = await axios.post(
       "https://ecommerce.routemisr.com/api/v1/auth/signup",
       data
     );
@@ -72,7 +72,7 @@ export default function Signup() {
     }
   }
 
-  let formik = useFormik<FormValues>({
+  const formik = useFormik<FormValues>({
     initialValues: {
       name: "",
       phone: "",

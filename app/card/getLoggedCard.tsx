@@ -33,21 +33,6 @@ function GetLoggedCard({ session }: { session: string }) {
   
   const { setcartitemscount } = useContext(CardContext);
 
-  async function getourcart() {
-    const { data } = await axios.get(
-      "https://ecommerce.routemisr.com/api/v1/cart",
-      {
-        headers: {
-          token: token,
-        },
-      }
-    );
-    setCartitems(data.data.products);
-    setcartitemscount(data.data.products.length)
-    
-
-
-  }
 
   async function deleteProduct(pid: string) {
     try {
@@ -103,8 +88,22 @@ function GetLoggedCard({ session }: { session: string }) {
   }
 
   useEffect(() => {
+      async function getourcart() {
+    const { data } = await axios.get(
+      "https://ecommerce.routemisr.com/api/v1/cart",
+      {
+        headers: {
+          token: token,
+        },
+      }
+    );
+    setCartitems(data.data.products);
+    setcartitemscount(data.data.products.length)
+  }
+
+
     getourcart();
-  }, []);
+  }, [router]);
 
   return (
     <>
