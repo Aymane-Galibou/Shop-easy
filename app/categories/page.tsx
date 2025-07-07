@@ -46,9 +46,10 @@ function Categories() {
 
           </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4" style={{ gridAutoRows: '370px' }}>
 
             {Categoriesitems?.map((item, index) => (
+
               <SmartLink  key={index} href={`/categories/${item._id}`}>
                 <BrandsCard header={item.name} imgsource={item.image} />
               </SmartLink>

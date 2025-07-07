@@ -6,6 +6,7 @@ import axios from "axios";
 import { TextGenerateEffect } from "@/Components/ui/text-generate-effect";
 import { Spotlight } from "@/Components/ui/Spotlight";
 import SmartLink from "@/Components/SmartLink/SmartLink";
+import Link from "next/link";
 
 export type Product = {
   description: string;
@@ -56,7 +57,7 @@ function Shop() {
           />
         </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4" style={{ gridAutoRows: '500px' }}>
 
           {productsitems?.map((item, index) => (
 
@@ -75,7 +76,7 @@ function Shop() {
 
 
           ))}
-        </div>
+  </div>
 
 
       </div>

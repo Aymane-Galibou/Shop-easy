@@ -5,7 +5,7 @@ import SmartLink from "../SmartLink/SmartLink";
 
 export default function Footer() {
   return (
-    <div className="bg-gray-100 dark:bg-black text-gray-700 dark:text-gray-300 px-6 md:px-16 py-10 mt-4">
+    <div className="bg-gray-100 dark:bg-black text-gray-700 dark:text-gray-300 px-6 md:px-16 py-10 mt-24">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Brand */}

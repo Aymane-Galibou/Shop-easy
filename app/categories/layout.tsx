@@ -1,26 +1,14 @@
-import React from 'react'
-import SideBar from '@/Components/Sidebar/Sidebar'
+import React from "react";
+import SideBar from "@/Components/Sidebar/Sidebar";
 
+function layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <SideBar />
 
-
-
-function layout({children}:{children:React.ReactNode}) {
-  
-  return <>
-
-
-<SideBar/>
-
-
-<div>
-    {children}
-
-</div>
-
-  
-  </>
-
-  
+      {children}
+    </>
+  );
 }
 
-export default layout
+export default layout;

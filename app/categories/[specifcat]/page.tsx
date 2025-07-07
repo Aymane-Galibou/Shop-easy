@@ -1,6 +1,7 @@
 "use client";
 import RelatedProducts from "@/app/shop/[productid]/RelatedProducts";
 import { BrandsCard } from "@/Components/ui/brands-card";
+import { TextGenerateEffect } from "@/Components/ui/text-generate-effect";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -38,10 +39,11 @@ function Specifcat() {
 
   return (
     <>
-      <div className="h-screen w-full flex flex-col">
+      <div className="min-h-screen w-full flex flex-col">
         {/*  first part */}
 
-        <div className="flex flex-col gap-6 sm:flex-row  sm:items-center px-2">
+        <div className="flex flex-col gap-3 sm:flex-row  sm:items-center px-2">
+
           <div>
             {specifqCategorie && (
               <BrandsCard
@@ -62,7 +64,13 @@ function Specifcat() {
               is right here in one place.
             </p>
           </div>
-        </div>
+
+          </div>
+        <TextGenerateEffect
+            className="px-2 text-[30px] md:text-5xl lg:text-6xl text-center"
+            words="Here are some related Products"
+          />
+
 
         {/*  second part */}
 <div className="w-full">

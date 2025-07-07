@@ -35,8 +35,10 @@ export default function RootLayout({
               <Navbar />
 
               <main className="mt-[60px]">{children}</main>
+<div>
 
               <Footer/>
+</div>
           </VerifyToken>
         </ThemeProvider>
       </body>
