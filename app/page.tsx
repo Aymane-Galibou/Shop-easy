@@ -148,7 +148,7 @@ globalize yourself, Shop Easy your ecommerce agency is here to help you achieve 
                   words="A Selection of Our Products"
                 />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4" style={{gridAutoRows:"500px"}}>
 
           {productsitems?.map((item, index) => (
 
