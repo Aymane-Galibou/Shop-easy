@@ -1,13 +1,10 @@
 "use client";
 import SmartLink from "@/Components/SmartLink/SmartLink";
 import { BrandsCard } from "@/Components/ui/brands-card";
-import { ThreeDCardDemo } from "@/Components/ui/card";
 import { Spotlight } from "@/Components/ui/Spotlight";
 import { TextGenerateEffect } from "@/Components/ui/text-generate-effect";
-import { LoginContext } from "@/Context/Loginauthentication";
 import axios from "axios";
-import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Category = {
   name: string;
@@ -16,7 +13,6 @@ type Category = {
 };
 
 function Categories() {
-  const { isOpened } = useContext(LoginContext);
   const [Categoriesitems, setCategoriesitems] = useState<Category[]>();
 
   useEffect(() => {

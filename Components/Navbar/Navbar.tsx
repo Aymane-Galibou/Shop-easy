@@ -13,7 +13,6 @@ import { useTheme } from "next-themes";
 import { FiSun } from "react-icons/fi";
 import SmartLink from "../SmartLink/SmartLink";
 import { CardContext } from "@/Context/cardContext";
-import axios from "axios";
 
 const Navbarelements = [
   { title: "Shop", to: "/shop" },

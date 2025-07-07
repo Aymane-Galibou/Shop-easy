@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ThreeDCardDemo } from "@/Components/ui/card";
 import { BrandsCard } from "@/Components/ui/brands-card";
 import { TextGenerateEffect } from "@/Components/ui/text-generate-effect";
 import { Spotlight } from "@/Components/ui/Spotlight";
@@ -12,7 +11,7 @@ type brands = {
   image: string;
 };
 
-function brand() {
+function Brand() {
   const [brands, setbrands] = useState<brands[]>();
 
   useEffect(() => {
@@ -51,6 +50,6 @@ function brand() {
   );
 }
 
-export default brand;
+export default Brand;
 
 // https://ecommerce.routemisr.com/api/v1/brands

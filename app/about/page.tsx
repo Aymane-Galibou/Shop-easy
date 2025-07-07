@@ -11,7 +11,7 @@ import Success from "@/Components/submitionsuccessfuly/Success";
 
 function About() {
 
-  const [state, handleSubmit, reset] = useForm('mkgbadrg');
+  const [state, handleSubmit] = useForm('mkgbadrg');
 
   if(state.succeeded){
     return <>

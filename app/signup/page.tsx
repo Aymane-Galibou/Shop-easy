@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Label } from "../../Components/ui/label";
 import { Input } from "../../Components/ui/input";
 import { cn } from "@/lib/utils";
-import { FormikValues, useFormik } from "formik";
+import {  useFormik } from "formik";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -33,7 +33,7 @@ export default function Signup() {
 
   const router = useRouter();
 
-  const [signupdata, setsignupdata] = useState<FormValues[]>([]);
+  
   const [loadingsignup, setloadingsignup] = useState<boolean>(false);
 
   const validateuser = (data: FormValues) => {

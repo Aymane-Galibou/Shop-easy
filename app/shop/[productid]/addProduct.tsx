@@ -1,13 +1,11 @@
 "use client";
 
 import { CardContext } from "@/Context/cardContext";
-import { LoginContext } from "@/Context/Loginauthentication";
 import axios from "axios";
 import { useContext } from "react";
 
 export default function useaddProduct() {
   const { setloadingcart  } = useContext(CardContext);
-    const { setcartitemscount } = useContext(LoginContext);
   
   return async function addproduct(session: string, productId: string) {
     try {
@@ -24,7 +22,6 @@ export default function useaddProduct() {
           },
         }
       );
-      setcartitemscount(response.data.numOfCartItems)
     } catch (err) {
       console.log(err);
     } finally {

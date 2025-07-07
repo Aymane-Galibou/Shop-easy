@@ -7,7 +7,6 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { TextGenerateEffect } from "@/Components/ui/text-generate-effect";
 import SmartLink from "@/Components/SmartLink/SmartLink";
-import { LoginContext } from "@/Context/Loginauthentication";
 import { CardContext } from "@/Context/cardContext";
 
 type cartitems = {

@@ -5,7 +5,6 @@ import { ThreeDCardDemo } from "@/Components/ui/card";
 import axios from "axios";
 import { TextGenerateEffect } from "@/Components/ui/text-generate-effect";
 import { Spotlight } from "@/Components/ui/Spotlight";
-import Link from "next/link";
 import SmartLink from "@/Components/SmartLink/SmartLink";
 
 export type Product = {

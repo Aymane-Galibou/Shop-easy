@@ -16,7 +16,6 @@ import {
 import { FaMobileScreenButton } from "react-icons/fa6";
 import { FcElectronics } from "react-icons/fc";
 import { LoginContext } from "@/Context/Loginauthentication";
-import { motion } from "motion/react";
 
 type sidebarelement = {
   title: string;

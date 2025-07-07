@@ -1,5 +1,4 @@
 "use client";
-import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { AnimatedTestimonials } from "@/Components/ui/animated-testimonials";
