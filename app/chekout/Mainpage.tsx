@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 export default function Chekout({card_id,session}:{card_id:string,session:string}) {
 
   const router = useRouter();
+const appUrl = process.env.NEXT_PUBLIC_APP_URL;
 
   type SigninForme = {
     details: string;
@@ -26,7 +27,7 @@ export default function Chekout({card_id,session}:{card_id:string,session:string
     try {
   setloadingcheck(true)
 
-        const response =await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${card_id}?url=http://localhost:3000`,{
+        const response =await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${card_id}?url=${appUrl}`,{
             shippingAddress:{
                 details:data.details,
                 phone:data.phone,
