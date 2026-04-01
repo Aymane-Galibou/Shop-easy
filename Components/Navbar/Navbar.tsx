@@ -4,13 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import logo1 from "../../public/logo1.png";
 import { MdOutlineDarkMode, MdOutlineShoppingCart } from "react-icons/md";
-import { IoMenu } from "react-icons/io5";
-import { usePathname } from "next/navigation";
+import { IoMenu, IoClose } from "react-icons/io5"; // Added Close icon
+import { usePathname, useRouter } from "next/navigation";
 import { LoginContext } from "@/Context/Loginauthentication";
 import Logout from "@/Context/Logout";
-import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { FiSun } from "react-icons/fi";
+import { FiSun, FiLogOut } from "react-icons/fi";
 import SmartLink from "../SmartLink/SmartLink";
 import { CardContext } from "@/Context/cardContext";
 
@@ -23,17 +22,19 @@ const Navbarelements = [
 ];
 
 function Navbar() {
-
-  const routera: string = usePathname();
+  const routera = usePathname();
   const router = useRouter();
+  const { isAuthenticated } = useContext(LoginContext);
+  const { cartitemscount } = useContext(CardContext);
+  const { theme, setTheme } = useTheme();
 
-  const { isAuthenticated} = useContext(LoginContext);
-  const { cartitemscount} = useContext(CardContext);
+  const [activemenu, setactivemenu] = useState(false);
+  const [loadlogout, setloadlogout] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-
-
-  const [activemenu, setactivemenu] = useState<boolean>(false);
-  const [loadlogout, setloadlogout] = useState<boolean>(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   async function handlelogout() {
     setloadlogout(true);
@@ -41,215 +42,158 @@ function Navbar() {
     router.push("/signin");
     router.refresh();
     setloadlogout(false);
+    setactivemenu(false);
   }
-
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // on sait que html est génereée sur le serveur mais dans la ligne .. le theme sur le serveur est undefined , et sur le client
-  // il est definie donc c'est un dismatch donc la solution c'est d'attendre jusqu'a ce que notre component est bien montée
-  //  et pour vérifier ca on doit utiliser useEffect car celui qui s'execute lorsque le component est pret
-  //  sinon on affiche null
-
-
-
-  useEffect(() =>{ 
-    
-    setMounted(true) 
-
-  } , []);
 
   if (!mounted) return null;
 
   return (
     <>
-      <div className="navbar dark:bg-black">
-        <div className="flex items-center gap-4 sm:gap-10">
-          <SmartLink href={"/"}>
-            <div className="flex justify-between items-center">
-              <Image
-                style={{ width: "65px", height: "80px" }}
-                priority={false}
-                src={logo1}
-                alt="welcome"
-              />
-              <h1 className="text-black dark:text-white font-extrabold text-[18px] flex-1  lg:text-2xl tracking-[0.6px]">
-                Shop Easy
-              </h1>
-            </div>
-          </SmartLink>
+      {/* THE FIX: Fixed position with high z-index and backdrop-blur. 
+         This prevents the hero from "eating" the navbar.
+      */}
+      <nav className="fixed top-0 left-0 w-full z-[100] bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-100 dark:border-zinc-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            
+            {/* LOGO SECTION */}
+            <SmartLink href="/">
+              <div className="flex items-center gap-2 group">
+                <div className="relative w-[50px] h-[60px]">
+                  <Image
+                    src={logo1}
+                    alt="Logo"
+                    fill
+                    className="object-contain group-hover:scale-105 transition-transform"
+                    priority
+                  />
+                </div>
+                <h1 className="text-xl font-black tracking-tighter dark:text-white uppercase">
+                  Shop <span className="text-orange-500">Easy</span>
+                </h1>
+              </div>
+            </SmartLink>
 
-          {/* desktop navbar */}
-
-          {isAuthenticated && (
-            <div className="hidden md:flex gap-3  md:gap-6">
-              {Navbarelements.map((item, index) => (
-                <div
-                  className={`${
-                    routera === item.to
-                      ? "font-extrabold text-black dark:text-white"
-                      : "text-gray-700 dark:text-gray-300 font-extralight"
-                  } relative tracking-[0.5px]  hover:text-black dark:hover:text-white hover:font-extrabold transition-all duration-300  text-[17px]`}
-                  key={index}
-                >
-                  <span
-                    className={
-                      routera === item.to
-                        ? ` absolute w-[100%] h-1 -bottom-1 bg-[#FF6B00] rounded-lg`
-                        : "hidden"
-                    }
-                  ></span>
-                  <SmartLink href={item.to}>{item.title}</SmartLink>
+            {/* DESKTOP NAV - Only visible if Authenticated as per your original logic */}
+            <div className="hidden md:flex items-center gap-8">
+              {isAuthenticated && Navbarelements.map((item, index) => (
+                <div key={index} className="relative group">
+                  <SmartLink href={item.to}>
+                    <span className={`text-sm font-bold uppercase tracking-widest transition-colors ${
+                      routera === item.to 
+                      ? "text-orange-500" 
+                      : "text-gray-600 dark:text-gray-300 hover:text-orange-500"
+                    }`}>
+                      {item.title}
+                    </span>
+                  </SmartLink>
+                  {/* Modern Animated Underline */}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-orange-500 transition-all duration-300 ${
+                    routera === item.to ? "w-full" : "w-0 group-hover:w-full"
+                  }`} />
                 </div>
               ))}
             </div>
-          )}
-        </div>
 
-        <div className="flex items-center gap-4 mr-3 p-3">
-          <div
-
-            className="text-[27px] flex items-center gap-3"
-          >
-<span className="hidden sm:flex relative text-gray-700 dark:text-gray-400 font-extralight cursor-pointer hover:text-black hover:font-extrabold">
-
-            <SmartLink href="/card">
-              <MdOutlineShoppingCart  /> 
-            </SmartLink>
-
-{  isAuthenticated &&          <p className="absolute right-0 w-5 h-5 flex items-center justify-center -top-3 text-white text-[16px] bg-orange-600 rounded-full">{cartitemscount}</p>
-}
-</span>
-            <span 
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-             className="text-gray-700 font-extralight cursor-pointer hover:text-black hover:font-extrabold">
-
-            {theme === "light" ? (
-              <MdOutlineDarkMode />
-            ) : (
-              <FiSun className="text-yellow-500" />
-            )}
-            </span>
-
-    
-
-          </div>
-
-          {!isAuthenticated && (
-            <>
-              <div className="hidden md:flex gap-3">
-                <span className="text-[17px] tracking-[0.5px] font-extralight text-gray-700 dark:text-gray-300 dark:hover:text-white hover:text-black hover:font-extrabold">
-                  <SmartLink href={"/signup"}>Sign up</SmartLink>{" "}
-                </span>
-
-                <span className="text-[17px] tracking-[0.5px] font-extralight text-gray-700 dark:text-gray-300 dark:hover:text-white hover:text-black hover:font-extrabold">
-                  <SmartLink href={"/signin"}>Sign in</SmartLink>{" "}
-                </span>
-              </div>
-            </>
-          )}
-
-          {isAuthenticated && (
-            <span className="text-[17px] hidden md:flex tracking-[0.5px] font-extralight text-gray-700 dark:text-gray-300 transition-all duration-300 dark:hover:text-white hover:text-black hover:font-extrabold">
-              <button onClick={() => handlelogout()}>
-                {loadlogout ? (
-                  <p className="animate-spin w-[30px] h-[30px] border-black dark:border-white border-t-2 rounded-full"></p>
-                ) : (
-                  <p>Log out</p>
-                )}
-              </button>
-            </span>
-          )}
-
-          <span
-            onClick={() => setactivemenu(!activemenu)}
-            className="text-2xl cursor-pointer flex md:hidden"
-          >
-            <IoMenu />
-          </span>
-        </div>
-
-        {/* phone and tablet navbar */}
-
-        {activemenu && (
-          <div className="fixed inset-0 bg-white zindex">
-            <div className="flex flex-col gap-6 ml-6 mt-11 py-4 w-full h-full">
-              {isAuthenticated && (
-                <>
-                  {Navbarelements.map((item, index) => (
-                    <span
-                      className={`${
-                        routera === item.to
-                          ? "font-extrabold text-black"
-                          : "text-gray-700 font-extralight"
-                      } relative tracking-[0.5px]  hover:text-black hover:font-extrabold  text-[17px]`}
-                      key={index}
-                    >
-                      <span
-                        className={
-                          routera === item.to
-                            ? ` absolute w-[25%] h-1 -bottom-1 bg-[#FF6B00] rounded-lg`
-                            : "hidden"
-                        }
-                      ></span>
-                      <Link
-                        onClick={() => setactivemenu(!activemenu)}
-                        href={{ pathname: item.to }}
-                      >
-                        {item.title}
-                      </Link>
-                    </span>
-                  ))}
-                </>
-              )}
-
-              {/*  sign in and sign up for phone navbar   */}
-
-              {!isAuthenticated && (
-                <>
-                  <span className="text-[17px] tracking-[0.5px] font-extralight text-gray-700 hover:text-black hover:font-extrabold">
-                    <Link
-                      onClick={() => setactivemenu(!activemenu)}
-                      href={"/signup"}
-                    >
-                      Sign up
-                    </Link>{" "}
-                  </span>
-
-                  <span className="text-[17px] tracking-[0.5px] font-extralight text-gray-700 hover:text-black hover:font-extrabold">
-                    <Link
-                      onClick={() => setactivemenu(!activemenu)}
-                      href={"/signin"}
-                    >
-                      Sign in
-                    </Link>{" "}
-                  </span>
-                </>
-              )}
-
-              {/* log out for phone navbar */}
-              {isAuthenticated && (
-                <span className="text-[17px] tracking-[0.5px] font-extralight text-gray-700 hover:text-black hover:font-extrabold">
-                  <button onClick={() => handlelogout()}>
-                    {loadlogout ? (
-                      <p className="animate-spin w-[30px] h-[30px] border-black dark:border-white border-t-2 rounded-full"></p>
-                    ) : (
-                      <p>Log out</p>
+            {/* RIGHT SIDE ACTIONS */}
+            <div className="flex items-center gap-5">
+              
+              {/* Cart & Theme */}
+              <div className="flex items-center gap-4 border-r border-gray-200 dark:border-zinc-700 pr-5">
+                <SmartLink href="/card">
+                  <div className="relative text-gray-700 dark:text-gray-300 hover:text-orange-500 transition-colors cursor-pointer">
+                    <MdOutlineShoppingCart size={24} />
+                    {isAuthenticated && cartitemscount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-orange-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                        {cartitemscount}
+                      </span>
                     )}
-                  </button>{" "}
-                </span>
-              )}
+                  </div>
+                </SmartLink>
 
-              <span
+                <button 
+                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                  className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition-colors"
+                >
+                  {theme === "light" ? <MdOutlineDarkMode size={24} /> : <FiSun size={24} className="text-yellow-500" />}
+                </button>
+              </div>
+
+              {/* Auth Buttons */}
+              <div className="hidden md:flex items-center gap-4">
+                {!isAuthenticated ? (
+                  <>
+                    <SmartLink href="/signin">
+                      <span className="text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-orange-500 transition-colors">Sign In</span>
+                    </SmartLink>
+                    <SmartLink href="/signup">
+                      <span className="px-5 py-2 bg-orange-500 text-white rounded-full text-sm font-bold hover:bg-orange-600 transition-all shadow-md shadow-orange-200 dark:shadow-none">
+                        Sign Up
+                      </span>
+                    </SmartLink>
+                  </>
+                ) : (
+                  <button 
+                    onClick={handlelogout}
+                    className="flex items-center gap-2 text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 px-3 py-2 rounded-lg transition-all"
+                  >
+                    {loadlogout ? (
+                      <div className="animate-spin w-5 h-5 border-2 border-red-500 border-t-transparent rounded-full" />
+                    ) : (
+                      <>
+                        <FiLogOut /> <span>Logout</span>
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+
+              {/* Mobile Toggle */}
+              <button 
                 onClick={() => setactivemenu(!activemenu)}
-                className="absolute cursor-pointer text-2xl text-red-600 z-30 top-7 right-6"
+                className="md:hidden text-3xl text-gray-800 dark:text-white"
               >
-                <IoMenu />
-              </span>
+                {activemenu ? <IoClose /> : <IoMenu />}
+              </button>
             </div>
           </div>
+        </div>
+
+        {/* MOBILE MENU - Full Screen Slide */}
+        {activemenu && (
+          <div className="fixed inset-0 top-20 bg-white dark:bg-black z-[110] flex flex-col p-8 space-y-6 md:hidden">
+            {isAuthenticated ? (
+              Navbarelements.map((item, index) => (
+                <Link 
+                  key={index} 
+                  href={item.to}
+                  onClick={() => setactivemenu(false)}
+                  className={`text-4xl font-black uppercase ${routera === item.to ? "text-orange-500" : "text-gray-900 dark:text-white"}`}
+                >
+                  {item.title}
+                </Link>
+              ))
+            ) : (
+              <div className="flex flex-col gap-6">
+                 <Link href="/signin" onClick={() => setactivemenu(false)} className="text-4xl font-black dark:text-white">Sign In</Link>
+                 <Link href="/signup" onClick={() => setactivemenu(false)} className="text-4xl font-black text-orange-500">Sign Up</Link>
+              </div>
+            )}
+            
+            {isAuthenticated && (
+              <button 
+                onClick={handlelogout}
+                className="text-left text-2xl font-bold text-red-500 pt-10"
+              >
+                {loadlogout ? "Logging out..." : "Log Out"}
+              </button>
+            )}
+          </div>
         )}
-      </div>
+      </nav>
+
+      {/* Spacer to push page content below the fixed navbar */}
+      <div className="h-20" />
     </>
   );
 }

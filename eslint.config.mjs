@@ -12,8 +12,10 @@ module.exports = {
     },
   },
   rules: {
+    
     // Disable explicit any errors globally
     "@typescript-eslint/no-explicit-any": "off",
+
     
     // Disable react hooks exhaustive deps warnings globally
     "react-hooks/exhaustive-deps": "off",
